@@ -4,13 +4,13 @@ interface CustomParams {
   width: number
   height: number
 }
+const toN = (d: string) => (/^[0-9]+$/.test(d) ? parseInt(d, 10) : undefined)
 export const handelParams = (
   req: Request
 ): [string | null, CustomParams | null] => {
   const filename = req.query.filename as string
-  const width = parseInt(req.query.width as string, 10)
-  const height = parseInt(req.query.height as string, 10)
-  const params = { filename, width, height }
+  const width = toN(req.query.width as string)
+  const height = toN(req.query.height as string)
   const files = [
     'encenadaport',
     'fjord',
@@ -19,7 +19,7 @@ export const handelParams = (
     'santamonica',
   ]
   if (filename && width && height && files.includes(filename)) {
-    return [null, params]
+    return [null, { width, height, filename }]
   } else {
     const res = `
     <h1>Unsupported params </h2>
