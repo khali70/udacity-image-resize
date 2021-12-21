@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
     "format": "prettier --write 'src/**/*.ts'",
-    "test": "pnpm run build && pnpm jasmine"
+    "test": "npm run build && npm jasmine"
   },
   "keywords": [],
   "author": "",

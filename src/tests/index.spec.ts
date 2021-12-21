@@ -1,4 +1,4 @@
-import app from './index'
+import app from '../index'
 import supertest from 'supertest'
 import * as fs from 'fs/promises'
 import path from 'path'

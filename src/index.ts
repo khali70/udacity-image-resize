@@ -20,6 +20,9 @@ app.use((req, res) => {
   `)
 })
 app.listen(3000, function () {
-  console.log('listening on http://localhost:3000')
+  console.log('server is working')
+  console.log(
+    'http://localhost:3000/resize?filename=palmtunnel&width=200&height=200'
+  )
 })
 export default app
