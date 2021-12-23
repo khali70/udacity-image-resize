@@ -8,7 +8,7 @@ describe('A spec', function () {
   const rmCache = () => {
     const thumbs = path.resolve(
       __dirname,
-      ...'../public/assets/thumb'.split('/')
+      ...'../../public/assets/thumb'.split('/')
     )
     fs.readdir(thumbs)
       .then((files) => {

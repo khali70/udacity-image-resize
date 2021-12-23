@@ -1,13 +1,42 @@
 import express from 'express'
 import path from 'path'
-import { imageHandler } from './modules/imageHandler'
+import { handelParams } from './utilities/validateParams'
+import { imageHandler } from './utilities/imageHandler'
 const app = express()
 
 app.use(express.json())
 
 app.use(express.static(path.join(__dirname, '..', 'public')))
 
-app.get('/resize', imageHandler)
+app.get('/resize', async (req, res) => {
+  const rootDir = path.resolve(__dirname, '..')
+  const [error, params] = handelParams(req)
+
+  if (error === null && params !== null) {
+    const { width, height, filename } = params
+    const imgPath = path.resolve(
+      rootDir,
+      'public',
+      'assets',
+      'thumb',
+      `${width}X${height}-${filename}.jpeg`
+    )
+    const { state, err } = await imageHandler(params, imgPath)
+    if (state === 'success') {
+      res.status(200)
+      res.set('Content-Type', 'image/jpeg')
+      res.sendFile(imgPath)
+    } else {
+      res.status(500)
+      res.send(err || 'cant resize the image')
+    }
+  } else {
+    //from this link i get the status code 422(Unprocessable Entity) Bad params
+    //https://stackoverflow.com/questions/9454811/which-http-status-code-to-use-for-required-parameters-not-provided
+    res.status(422)
+    res.send(error)
+  }
+})
 // 404 route
 app.use((req, res) => {
   res.status(404)
