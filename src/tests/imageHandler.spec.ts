@@ -30,7 +30,7 @@ describe('A spec', function () {
       },
       imagePath
     )
-    expect(state).toEqual('fail')
+    expect(state).toBeTruthy()
     done()
   })
   afterAll(rmCache)
