@@ -43,6 +43,3 @@ for testing we use jasmine to test run
 npm run test
 ```
 
-# todo
-
-- [ ] read the review before resubmitting
